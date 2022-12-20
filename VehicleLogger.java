@@ -7,33 +7,42 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class VehicleLogger {
-
-	private VehicleWasher washer;
+	
+	//Yarin Ackerman 318666443
+	//Rami Abu Rabia 314820135
 	
 	private FileWriter fw;
 	private PrintWriter pw;
-	
-	private FileReader fr;
-	private BufferedReader br;
-	
-	public VehicleLogger(VehicleWasher washer) {
-		
-		this.washer=washer;
-	}
-	
-	public void write() throws IOException {
+
+	public VehicleLogger() throws IOException {
 		
 		fw = new FileWriter("Log.txt");
-		pw= new PrintWriter(fw);
-		
-		fw.close();
-		pw.close();
-		
+		pw = new PrintWriter(fw);
 	}
-	
-	
-	
-	
-	
-	
+
+	public void close() throws IOException {
+		
+		pw.close();
+		fw.close();
+	}
+
+	public PrintWriter getPw() {
+		return pw;
+	}
+
+	public void read() throws IOException {
+		
+		FileReader fr = new FileReader("Log.txt");
+		BufferedReader br = new BufferedReader(fr);
+		
+		String s1 = br.readLine();
+		
+		while (s1 != null) {
+			System.out.println(s1);
+			s1 = br.readLine();
+		}
+		br.close();
+		fr.close();
+	}
+
 }

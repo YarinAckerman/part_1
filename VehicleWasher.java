@@ -3,20 +3,26 @@ package part_1;
 import java.util.concurrent.Semaphore;
 
 public class VehicleWasher {
-
-	private int waitingFront = 0;
-	private int waitingRear = 0;
-	private int washingTime;
-	private int waitingTime;
-
+	
+	//Yarin Ackerman 318666443
+	//Rami Abu Rabia 314820135
+	
 	private Vehicle waiting[];
-	private Semaphore washing;
-
 	private Car washedCar[];
 	private SUV washedSUV[];
 	private Truck washedTruck[];
 	private MiniBus washedMiniBus[];
-
+	
+	private int waitingCount = 0;
+	private int wahingCount = 0;
+	private int waitingFront=0;
+	private int waitingRear=0;
+	
+	private int washingTime;
+	private int waitingTime;
+	
+	private Semaphore washing;
+	
 	public VehicleWasher(int n, int m, double washingAvarage, double waitingAvarage) {
 
 		this.washing = new Semaphore(n, true);

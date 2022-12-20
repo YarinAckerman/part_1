@@ -1,50 +1,59 @@
 package part_1;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
-		VehicleWasher vv= new VehicleWasher(2,4,3,1.5);
-		VehicleLogger vl= new VehicleLogger(vv);
-		
-		Vehicle v= new SUV(vv);
-		Vehicle v2= new Car(vv);
-		Vehicle v3= new Truck(vv);
-		Vehicle v4= new MiniBus(vv);
-		
-		
-		Thread thread = new Thread(v);
-		Thread thread2 = new Thread(v2);
-		Thread thread3 = new Thread(v3);
-		Thread thread4 = new Thread(v4);
-		
-		thread.start();
-		thread2.start();
-		thread3.start();
-		thread4.start();
-		
-		try {
-			thread.join();
-			thread2.join();
-			thread3.join();
-			thread4.join();
-			
+		//Yarin Ackerman 318666443
+		//Rami Abu Rabia 314820135
+
+		Scanner input = new Scanner(System.in);
+
+		System.out.println("Please enter numbers of vehicles");
+		int numOfVehicle = input.nextInt();
+
+		System.out.println("Please enter numbers of washing stations");
+		int numOfWStaion = input.nextInt();
+
+		VehicleWasher vehicleWasher = new VehicleWasher(numOfWStaion, numOfVehicle, numOfWStaion, numOfWStaion);
+		input.close();
+
+		Thread[] threadsArr = new Thread[numOfVehicle];
+		Vehicle[] vehicleArr = new Vehicle[numOfVehicle];
+
+		for (int i = 0; i < vehicleArr.length; i++) {
+
+			int random = ((int) (Math.random() * 4) + 1);
+
+			switch (random) {
+
+			case 1:
+				vehicleArr[i] = new Car(vehicleWasher);
+				break;
+
+			case 2:
+				vehicleArr[i] = new SUV(vehicleWasher);
+				break;
+
+			case 3:
+				vehicleArr[i] = new Truck(vehicleWasher);
+				break;
+
+			case 4:
+				vehicleArr[i] = new MiniBus(vehicleWasher);
+				break;
+			}
 		}
-		catch (InterruptedException e) {
-			
-			e.printStackTrace();
-		}
-		
-		try {
-			vl.write();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
+		for (int i = 0; i < threadsArr.length; i++)
+			threadsArr[i] = new Thread(threadsArr[i]);
+
+		for (int i = 0; i < threadsArr.length; i++)
+			threadsArr[i].start();
+
 	}
 
 }
